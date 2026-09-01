@@ -8,6 +8,8 @@ Instead of simply talking to users, Yuki adapts the digital environment around t
 
 AI shouldn't just respond to you. It should create an experience around you.
 
-## Status
+## What Yuki Does
 
-🚧 Prototype in development.
+Yuki combines AI, personalization, memory, multimodal interaction, and adaptive environments to create a digital world that evolves with the user.
+
+The goal is to make technology feel less like a tool you operate and more like a world you experience.
