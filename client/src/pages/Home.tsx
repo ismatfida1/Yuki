@@ -3,9 +3,10 @@
  * not a dashboard; interactions are contextual, optional, readable, and reversible.
  */
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { BookOpen, CloudRain, Droplets, Leaf, LampDesk, PenLine, Sparkles, X } from "lucide-react";
 import { MomentNote } from "@/components/world/MomentNote";
+import { ReflectionPanel } from "@/components/world/ReflectionPanel";
 import { WorldControls } from "@/components/world/WorldControls";
 import { WorldObjectButton } from "@/components/world/WorldObjectButton";
 import { useWorld } from "@/contexts/WorldContext";
@@ -115,6 +116,7 @@ function ObjectArt({ id }: { id: WorldObjectId }) {
 
 export default function Home() {
   const { state, selectObject, dismissInvitation } = useWorld();
+  const [reflectionOpen, setReflectionOpen] = useState(false);
   const selectedDetail = state.selectedObject ? objectDetails[state.selectedObject] : null;
   const selectedObject = useMemo(
     () => worldObjects.find((object) => object.id === state.selectedObject),
@@ -205,7 +207,7 @@ export default function Home() {
             label="Sketchbook. Make a mark if you feel like it."
             hint="The sketchbook"
             className="world-object--sketchbook"
-            onActivate={() => selectObject("sketchbook")}
+            onActivate={() => setReflectionOpen(true)}
           >
             <ObjectArt id="sketchbook" />
           </WorldObjectButton>
@@ -254,6 +256,8 @@ export default function Home() {
           </button>
         </aside>
       ) : null}
+
+      {reflectionOpen ? <ReflectionPanel onClose={() => setReflectionOpen(false)} /> : null}
 
       {selectedDetail && selectedObject ? (
         <aside className="object-whisper" aria-live="polite" aria-label={`${selectedObject.label} details`}>

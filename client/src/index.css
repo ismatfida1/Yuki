@@ -1585,3 +1585,204 @@
   from { opacity: 0; transform: translateY(0.8rem) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/*
+ * Design philosophy: Tactile Storybook Quiet — the sketchbook is a private room
+ * inside the world, with clear ownership, reversible storage, and no metrics.
+ */
+
+@layer components {
+  .reflection-backdrop {
+    position: fixed;
+    z-index: 21;
+    inset: 0;
+    display: grid;
+    place-items: end center;
+    padding: 1rem;
+    background: rgba(28, 35, 31, 0.34);
+    backdrop-filter: blur(4px);
+    animation: note-backdrop-in 180ms ease both;
+  }
+
+  .reflection-panel {
+    width: min(34rem, 100%);
+    max-height: min(88svh, 42rem);
+    overflow: auto;
+    padding: 1.2rem;
+    border: 1px solid color-mix(in srgb, var(--yuki-gold) 44%, transparent);
+    border-radius: 1.4rem 1.4rem 1rem 1rem;
+    color: var(--yuki-ink);
+    background: color-mix(in srgb, var(--yuki-cream) 97%, white 3%);
+    box-shadow: 0 24px 76px rgba(42, 34, 23, 0.27);
+    animation: note-panel-in 260ms var(--ease-yuki) both;
+  }
+
+  .reflection-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .reflection-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--yuki-moss);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .reflection-topline button {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 0;
+    border-radius: 50%;
+    color: color-mix(in srgb, var(--yuki-ink) 58%, transparent);
+    background: transparent;
+  }
+
+  .reflection-topline button:hover,
+  .reflection-topline button:focus-visible {
+    color: var(--yuki-ink);
+    background: color-mix(in srgb, var(--yuki-moss) 13%, transparent);
+  }
+
+  .reflection-panel h2 {
+    margin: 0.25rem 0 0.35rem;
+    color: var(--yuki-ink);
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(1.65rem, 7vw, 2.35rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+  }
+
+  .reflection-copy {
+    margin: 0 0 1rem;
+    color: color-mix(in srgb, var(--yuki-ink) 68%, transparent);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .reflection-label,
+  .reflection-history-label {
+    display: block;
+    margin-bottom: 0.42rem;
+    color: color-mix(in srgb, var(--yuki-ink) 72%, transparent);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .reflection-panel textarea {
+    display: block;
+    width: 100%;
+    resize: vertical;
+    min-height: 7rem;
+    padding: 0.78rem 0.85rem;
+    border: 1px solid color-mix(in srgb, var(--yuki-ink) 16%, transparent);
+    border-radius: 0.85rem;
+    color: var(--yuki-ink);
+    background: rgba(255, 255, 255, 0.38);
+    font-size: 0.83rem;
+    line-height: 1.5;
+  }
+
+  .reflection-panel textarea:focus-visible {
+    border-color: color-mix(in srgb, var(--yuki-moss) 58%, transparent);
+    outline-offset: 2px;
+  }
+
+  .reflection-panel textarea::placeholder {
+    color: color-mix(in srgb, var(--yuki-ink) 44%, transparent);
+  }
+
+  .reflection-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 0.65rem;
+  }
+
+  .reflection-status {
+    color: color-mix(in srgb, var(--yuki-ink) 53%, transparent);
+    font-size: 0.68rem;
+  }
+
+  .reflection-save {
+    min-height: 2.55rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid color-mix(in srgb, var(--yuki-moss) 45%, transparent);
+    border-radius: 999px;
+    color: #f7f2e8;
+    background: var(--yuki-moss);
+    font-size: 0.72rem;
+    transition: transform 160ms var(--ease-yuki), background 180ms ease;
+  }
+
+  .reflection-save:hover,
+  .reflection-save:focus-visible {
+    background: color-mix(in srgb, var(--yuki-moss) 82%, #4c6544);
+  }
+
+  .reflection-save:active {
+    transform: scale(0.97);
+  }
+
+  .reflection-history {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid color-mix(in srgb, var(--yuki-ink) 12%, transparent);
+  }
+
+  .reflection-history-label {
+    margin-bottom: 0.5rem;
+    color: var(--yuki-moss);
+    text-transform: uppercase;
+  }
+
+  .reflection-entry {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px dashed color-mix(in srgb, var(--yuki-ink) 13%, transparent);
+  }
+
+  .reflection-entry p {
+    flex: 1;
+    margin: 0;
+    color: color-mix(in srgb, var(--yuki-ink) 77%, transparent);
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .reflection-entry button {
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 2.15rem;
+    height: 2.15rem;
+    border: 0;
+    border-radius: 50%;
+    color: color-mix(in srgb, var(--yuki-rose) 73%, var(--yuki-ink));
+    background: transparent;
+  }
+
+  .reflection-entry button:hover,
+  .reflection-entry button:focus-visible {
+    background: color-mix(in srgb, var(--yuki-rose) 14%, transparent);
+  }
+
+  @media (min-width: 700px) {
+    .reflection-backdrop {
+      place-items: center;
+    }
+  }
+}
