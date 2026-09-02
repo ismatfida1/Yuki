@@ -9,6 +9,7 @@ import { FirstVisitThreshold } from "@/components/world/FirstVisitThreshold";
 import { MomentNote } from "@/components/world/MomentNote";
 import { PreferencesPanel } from "@/components/world/PreferencesPanel";
 import { ReflectionPanel } from "@/components/world/ReflectionPanel";
+import { SmallStepPanel } from "@/components/world/SmallStepPanel";
 import { WorldControls } from "@/components/world/WorldControls";
 import { WorldObjectButton } from "@/components/world/WorldObjectButton";
 import { useWorld } from "@/contexts/WorldContext";
@@ -121,6 +122,7 @@ export default function Home() {
   const [reflectionOpen, setReflectionOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [thresholdOpen, setThresholdOpen] = useState(true);
+  const [smallStepOpen, setSmallStepOpen] = useState(false);
   const selectedDetail = state.selectedObject ? objectDetails[state.selectedObject] : null;
   const selectedObject = useMemo(
     () => worldObjects.find((object) => object.id === state.selectedObject),
@@ -252,6 +254,7 @@ export default function Home() {
         <div className="world-footer">
           <p className="world-caption"><CloudRain aria-hidden="true" size={16} /> {state.atmosphere === "rain" ? "The rain can stay." : "A little weather is passing by."}</p>
           <MomentNote />
+          <button className="small-step-trigger" type="button" onClick={() => setSmallStepOpen(true)}>I’m stuck</button>
           <p className="world-caption world-caption--right">{state.soundEnabled ? "A soft room tone is ready." : "The room is quiet by default."}</p>
         </div>
       </section>
@@ -269,6 +272,7 @@ export default function Home() {
       ) : null}
 
       {preferencesOpen ? <PreferencesPanel onClose={() => setPreferencesOpen(false)} /> : null}
+      {smallStepOpen ? <SmallStepPanel onClose={() => setSmallStepOpen(false)} /> : null}
       {reflectionOpen ? <ReflectionPanel onClose={() => setReflectionOpen(false)} /> : null}
 
       {selectedDetail && selectedObject ? (
