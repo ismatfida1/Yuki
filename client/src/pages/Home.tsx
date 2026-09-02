@@ -6,6 +6,7 @@
 import { useMemo, useState } from "react";
 import { BookOpen, CloudRain, Droplets, Leaf, LampDesk, PenLine, Sparkles, X } from "lucide-react";
 import { MomentNote } from "@/components/world/MomentNote";
+import { PreferencesPanel } from "@/components/world/PreferencesPanel";
 import { ReflectionPanel } from "@/components/world/ReflectionPanel";
 import { WorldControls } from "@/components/world/WorldControls";
 import { WorldObjectButton } from "@/components/world/WorldObjectButton";
@@ -117,6 +118,7 @@ function ObjectArt({ id }: { id: WorldObjectId }) {
 export default function Home() {
   const { state, selectObject, dismissInvitation } = useWorld();
   const [reflectionOpen, setReflectionOpen] = useState(false);
+  const [preferencesOpen, setPreferencesOpen] = useState(false);
   const selectedDetail = state.selectedObject ? objectDetails[state.selectedObject] : null;
   const selectedObject = useMemo(
     () => worldObjects.find((object) => object.id === state.selectedObject),
@@ -145,7 +147,13 @@ export default function Home() {
           <span className="header-note-dot" aria-hidden="true" />
           <span>{atmosphereCopy[state.atmosphere]}</span>
         </div>
-        <WorldControls />
+        <div className="header-actions">
+          <button className="preference-trigger" type="button" onClick={() => setPreferencesOpen(true)} aria-label="Open preferences">
+            <span aria-hidden="true">✦</span>
+            <span>Preferences</span>
+          </button>
+          <WorldControls />
+        </div>
       </header>
 
       <section className="home-world" id="world" aria-labelledby="world-title">
@@ -257,6 +265,7 @@ export default function Home() {
         </aside>
       ) : null}
 
+      {preferencesOpen ? <PreferencesPanel onClose={() => setPreferencesOpen(false)} /> : null}
       {reflectionOpen ? <ReflectionPanel onClose={() => setReflectionOpen(false)} /> : null}
 
       {selectedDetail && selectedObject ? (

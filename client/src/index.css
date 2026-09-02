@@ -1786,3 +1786,250 @@
     }
   }
 }
+
+/*
+ * Design philosophy: Tactile Storybook Quiet — preferences are a calm edge-of-world
+ * control, with plain language, reversible choices, and no dashboard chrome.
+ */
+
+@layer components {
+  .header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.45rem;
+  }
+
+  .preference-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 2.65rem;
+    padding: 0.55rem 0.72rem;
+    border: 1px solid color-mix(in srgb, var(--yuki-ink) 13%, transparent);
+    border-radius: 999px;
+    color: color-mix(in srgb, var(--yuki-ink) 65%, transparent);
+    background: transparent;
+    font-size: 0.7rem;
+    transition: background 180ms ease, color 180ms ease, transform 160ms var(--ease-yuki);
+  }
+
+  .preference-trigger:hover,
+  .preference-trigger:focus-visible {
+    color: var(--yuki-ink);
+    background: color-mix(in srgb, var(--yuki-moss) 11%, transparent);
+  }
+
+  .preference-trigger:active {
+    transform: scale(0.97);
+  }
+
+  .preference-trigger > span:first-child {
+    color: var(--yuki-gold);
+    font-size: 0.9rem;
+  }
+
+  .preferences-backdrop {
+    position: fixed;
+    z-index: 22;
+    inset: 0;
+    display: grid;
+    place-items: end center;
+    padding: 1rem;
+    background: rgba(28, 35, 31, 0.34);
+    backdrop-filter: blur(4px);
+    animation: note-backdrop-in 180ms ease both;
+  }
+
+  .preferences-panel {
+    width: min(36rem, 100%);
+    max-height: min(88svh, 44rem);
+    overflow: auto;
+    padding: 1.2rem;
+    border: 1px solid color-mix(in srgb, var(--yuki-gold) 44%, transparent);
+    border-radius: 1.4rem 1.4rem 1rem 1rem;
+    color: var(--yuki-ink);
+    background: color-mix(in srgb, var(--yuki-cream) 97%, white 3%);
+    box-shadow: 0 24px 76px rgba(42, 34, 23, 0.27);
+    animation: note-panel-in 260ms var(--ease-yuki) both;
+  }
+
+  .preferences-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .preferences-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--yuki-moss);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .preferences-topline button {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 0;
+    border-radius: 50%;
+    color: color-mix(in srgb, var(--yuki-ink) 58%, transparent);
+    background: transparent;
+  }
+
+  .preferences-topline button:hover,
+  .preferences-topline button:focus-visible {
+    color: var(--yuki-ink);
+    background: color-mix(in srgb, var(--yuki-moss) 13%, transparent);
+  }
+
+  .preferences-panel h2 {
+    margin: 0.25rem 0 0.35rem;
+    color: var(--yuki-ink);
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(1.65rem, 7vw, 2.35rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+  }
+
+  .preferences-copy {
+    margin: 0 0 1rem;
+    color: color-mix(in srgb, var(--yuki-ink) 68%, transparent);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .preferences-list {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .preference-row {
+    display: grid;
+    grid-template-columns: 2rem 1fr auto;
+    align-items: center;
+    gap: 0.65rem;
+    width: 100%;
+    min-height: 4.2rem;
+    padding: 0.65rem 0.7rem;
+    border: 1px solid transparent;
+    border-radius: 0.9rem;
+    color: var(--yuki-ink);
+    background: rgba(255, 255, 255, 0.3);
+    text-align: left;
+    transition: border-color 180ms ease, background 180ms ease, transform 160ms var(--ease-yuki);
+  }
+
+  .preference-row:hover,
+  .preference-row:focus-visible,
+  .preference-row[aria-pressed="true"] {
+    border-color: color-mix(in srgb, var(--yuki-moss) 40%, transparent);
+    background: color-mix(in srgb, var(--yuki-moss) 12%, transparent);
+  }
+
+  .preference-row:active {
+    transform: scale(0.99);
+  }
+
+  .preference-icon {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    color: var(--yuki-moss);
+    background: color-mix(in srgb, var(--yuki-moss) 13%, transparent);
+  }
+
+  .preference-row strong,
+  .preference-row small {
+    display: block;
+  }
+
+  .preference-row strong {
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+
+  .preference-row small {
+    margin-top: 0.2rem;
+    color: color-mix(in srgb, var(--yuki-ink) 58%, transparent);
+    font-size: 0.68rem;
+    line-height: 1.25;
+  }
+
+  .preference-state {
+    color: color-mix(in srgb, var(--yuki-ink) 52%, transparent);
+    font-size: 0.68rem;
+  }
+
+  .privacy-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-top: 1rem;
+    padding: 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--yuki-moss) 22%, transparent);
+    border-radius: 0.9rem;
+    color: color-mix(in srgb, var(--yuki-ink) 70%, transparent);
+    background: color-mix(in srgb, var(--yuki-moss) 8%, transparent);
+  }
+
+  .privacy-note svg {
+    flex: 0 0 auto;
+    margin-top: 0.1rem;
+    color: var(--yuki-moss);
+  }
+
+  .privacy-note p {
+    margin: 0;
+    font-size: 0.7rem;
+    line-height: 1.45;
+  }
+
+  .privacy-note strong {
+    color: var(--yuki-ink);
+  }
+
+  .preference-data-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 0.85rem;
+    color: color-mix(in srgb, var(--yuki-ink) 52%, transparent);
+    font-size: 0.67rem;
+  }
+
+  .preference-data-row button {
+    border: 0;
+    color: color-mix(in srgb, var(--yuki-rose) 82%, var(--yuki-ink));
+    background: transparent;
+    font-size: 0.67rem;
+    text-decoration: underline;
+    text-underline-offset: 0.16rem;
+  }
+
+  @media (max-width: 560px) {
+    .preference-trigger > span:last-child {
+      display: none;
+    }
+
+    .preference-trigger {
+      width: 2.65rem;
+      padding: 0;
+    }
+  }
+
+  @media (min-width: 700px) {
+    .preferences-backdrop {
+      place-items: center;
+    }
+  }
+}
