@@ -5,6 +5,7 @@
 
 import { useMemo } from "react";
 import { BookOpen, CloudRain, Droplets, Leaf, LampDesk, PenLine, Sparkles, X } from "lucide-react";
+import { MomentNote } from "@/components/world/MomentNote";
 import { WorldControls } from "@/components/world/WorldControls";
 import { WorldObjectButton } from "@/components/world/WorldObjectButton";
 import { useWorld } from "@/contexts/WorldContext";
@@ -237,6 +238,7 @@ export default function Home() {
 
         <div className="world-footer">
           <p className="world-caption"><CloudRain aria-hidden="true" size={16} /> {state.atmosphere === "rain" ? "The rain can stay." : "A little weather is passing by."}</p>
+          <MomentNote />
           <p className="world-caption world-caption--right">{state.soundEnabled ? "A soft room tone is ready." : "The room is quiet by default."}</p>
         </div>
       </section>

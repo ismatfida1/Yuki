@@ -1367,3 +1367,221 @@
   50% { opacity: 0.7; }
   100% { transform: translate3d(1.2rem, -2.4rem, 0); opacity: 0.28; }
 }
+
+/*
+ * Design philosophy: Tactile Storybook Quiet — this moment note is an optional
+ * environmental invitation, not a chat panel or productivity form.
+ */
+
+@layer components {
+  .moment-note-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    min-height: 2.25rem;
+    padding: 0.4rem 0.72rem;
+    border: 1px dashed color-mix(in srgb, var(--yuki-moss) 46%, transparent);
+    border-radius: 999px;
+    color: color-mix(in srgb, var(--yuki-ink) 72%, transparent);
+    background: color-mix(in srgb, var(--yuki-cream) 46%, transparent);
+    font-size: 0.7rem;
+    transition: transform 160ms var(--ease-yuki), background 180ms ease, color 180ms ease;
+  }
+
+  .moment-note-trigger:hover,
+  .moment-note-trigger:focus-visible {
+    color: var(--yuki-ink);
+    background: color-mix(in srgb, var(--yuki-moss) 12%, transparent);
+  }
+
+  .moment-note-trigger:active {
+    transform: scale(0.97);
+  }
+
+  .moment-note-backdrop {
+    position: fixed;
+    z-index: 20;
+    inset: 0;
+    display: grid;
+    place-items: end center;
+    padding: 1rem;
+    background: rgba(31, 38, 34, 0.28);
+    backdrop-filter: blur(3px);
+    animation: note-backdrop-in 180ms ease both;
+  }
+
+  .moment-note-panel {
+    width: min(31rem, 100%);
+    padding: 1.15rem;
+    border: 1px solid color-mix(in srgb, var(--yuki-gold) 44%, transparent);
+    border-radius: 1.35rem;
+    color: var(--yuki-ink);
+    background: color-mix(in srgb, var(--yuki-cream) 96%, white 4%);
+    box-shadow: 0 22px 70px rgba(46, 39, 29, 0.25);
+    animation: note-panel-in 260ms var(--ease-yuki) both;
+  }
+
+  .moment-note-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .moment-note-kicker {
+    color: var(--yuki-moss);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .moment-note-topline button {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 0;
+    border-radius: 50%;
+    color: color-mix(in srgb, var(--yuki-ink) 58%, transparent);
+    background: transparent;
+  }
+
+  .moment-note-topline button:hover,
+  .moment-note-topline button:focus-visible {
+    color: var(--yuki-ink);
+    background: color-mix(in srgb, var(--yuki-moss) 13%, transparent);
+  }
+
+  .moment-note-panel h2 {
+    margin: 0.25rem 0 0.35rem;
+    color: var(--yuki-ink);
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(1.55rem, 6vw, 2.2rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+  }
+
+  .moment-note-copy {
+    margin: 0 0 1rem;
+    color: color-mix(in srgb, var(--yuki-ink) 66%, transparent);
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .moment-note-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: color-mix(in srgb, var(--yuki-ink) 78%, transparent);
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .moment-note-panel textarea {
+    display: block;
+    width: 100%;
+    resize: vertical;
+    min-height: 5.6rem;
+    padding: 0.75rem 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--yuki-ink) 16%, transparent);
+    border-radius: 0.8rem;
+    color: var(--yuki-ink);
+    background: rgba(255, 255, 255, 0.34);
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .moment-note-panel textarea::placeholder {
+    color: color-mix(in srgb, var(--yuki-ink) 44%, transparent);
+  }
+
+  .moment-note-panel textarea:focus-visible {
+    border-color: color-mix(in srgb, var(--yuki-moss) 58%, transparent);
+    outline-offset: 2px;
+  }
+
+  .moment-moods {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.38rem;
+    margin-top: 0.65rem;
+  }
+
+  .moment-mood {
+    min-height: 2.6rem;
+    padding: 0.35rem 0.25rem;
+    border: 1px solid transparent;
+    border-radius: 0.7rem;
+    color: color-mix(in srgb, var(--yuki-ink) 68%, transparent);
+    background: rgba(255, 255, 255, 0.3);
+    font-size: 0.68rem;
+    transition: background 180ms ease, border-color 180ms ease, transform 160ms var(--ease-yuki);
+  }
+
+  .moment-mood:hover,
+  .moment-mood:focus-visible,
+  .moment-mood[data-active="true"] {
+    border-color: color-mix(in srgb, var(--yuki-moss) 44%, transparent);
+    background: color-mix(in srgb, var(--yuki-moss) 14%, transparent);
+  }
+
+  .moment-mood:active {
+    transform: scale(0.97);
+  }
+
+  .moment-note-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .moment-note-skip,
+  .moment-note-submit {
+    min-height: 2.55rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    transition: transform 160ms var(--ease-yuki), background 180ms ease;
+  }
+
+  .moment-note-skip {
+    border: 0;
+    color: color-mix(in srgb, var(--yuki-ink) 62%, transparent);
+    background: transparent;
+  }
+
+  .moment-note-submit {
+    border: 1px solid color-mix(in srgb, var(--yuki-moss) 45%, transparent);
+    color: #f7f2e8;
+    background: var(--yuki-moss);
+    box-shadow: 0 5px 14px rgba(82, 110, 75, 0.18);
+  }
+
+  .moment-note-submit:hover,
+  .moment-note-submit:focus-visible {
+    background: color-mix(in srgb, var(--yuki-moss) 82%, #4c6544);
+  }
+
+  .moment-note-submit:active,
+  .moment-note-skip:active {
+    transform: scale(0.97);
+  }
+
+  @media (min-width: 700px) {
+    .moment-note-backdrop {
+      place-items: center;
+    }
+  }
+}
+
+@keyframes note-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes note-panel-in {
+  from { opacity: 0; transform: translateY(0.8rem) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
