@@ -5,6 +5,7 @@
 
 import { useMemo, useState } from "react";
 import { BookOpen, CloudRain, Droplets, Leaf, LampDesk, PenLine, Sparkles, X } from "lucide-react";
+import { FirstVisitThreshold } from "@/components/world/FirstVisitThreshold";
 import { MomentNote } from "@/components/world/MomentNote";
 import { PreferencesPanel } from "@/components/world/PreferencesPanel";
 import { ReflectionPanel } from "@/components/world/ReflectionPanel";
@@ -119,6 +120,7 @@ export default function Home() {
   const { state, selectObject, dismissInvitation } = useWorld();
   const [reflectionOpen, setReflectionOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
+  const [thresholdOpen, setThresholdOpen] = useState(true);
   const selectedDetail = state.selectedObject ? objectDetails[state.selectedObject] : null;
   const selectedObject = useMemo(
     () => worldObjects.find((object) => object.id === state.selectedObject),
@@ -129,6 +131,7 @@ export default function Home() {
     <main
       className={`yuki-app atmosphere-${state.atmosphere} density-${state.density}${state.motionReduced ? " motion-reduced" : ""}`}
     >
+      {thresholdOpen ? <FirstVisitThreshold onClose={() => setThresholdOpen(false)} /> : null}
       <div className="paper-grain" aria-hidden="true" />
       <div className="ambient-dust ambient-dust--one" aria-hidden="true" />
       <div className="ambient-dust ambient-dust--two" aria-hidden="true" />
