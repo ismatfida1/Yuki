@@ -72,3 +72,7 @@ The Yuki mark is a small four-point snow-flower / lantern hybrid: four soft leaf
 ## File-level reminder
 
 All frontend files created under this direction should begin with a short comment stating that they implement **Tactile Storybook Quiet**: place-before-interface, warm tactile palette, contextual interaction, optional participation, accessible contrast, and reduced-motion support. If a choice makes the interface feel more like a dashboard, ask whether it dilutes this philosophy and redesign it.
+
+## Style Decisions
+
+Yuki’s approved visual direction is now **calm pixel-fantasy**: atmospheric pixel-art structure with painterly dusk, occasional darker moods, curated Pinterest-like material contrast, and restrained cuteness. The environment stays visually primary. Yuki is a quiet, ambiguous inhabitant who may be present, absorbed in an activity, wandering, or absent from the immediate frame; Yuki must never read as a mascot or chatbot assistant. Background, objects, Yuki, weather, lighting, particles, and mood overlays remain independently controllable so one persistent world can adapt without becoming a collection of disconnected screens.

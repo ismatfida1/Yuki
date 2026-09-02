@@ -154,6 +154,13 @@ export default function Home() {
 
         <div className="room-stage" aria-label="Yuki’s home world. Explore the objects or stay in the room." role="region">
           <div className="room-wall" aria-hidden="true">
+            <img
+              className="world-illustration-layer"
+              src="/manus-storage/yuki-proof-pixel-fantasy-v2_d03feb24.png"
+              alt=""
+              aria-hidden="true"
+            />
+            <span className="world-illustration-tint" />
             <span className="wall-shadow wall-shadow--one" />
             <span className="wall-shadow wall-shadow--two" />
           </div>
