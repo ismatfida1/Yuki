@@ -5,6 +5,7 @@
 
 import { useMemo, useState } from "react";
 import { BookOpen, CloudRain, Droplets, Leaf, LampDesk, PenLine, Sparkles, X } from "lucide-react";
+import { ActivityNook } from "@/components/world/ActivityNook";
 import { FirstVisitThreshold } from "@/components/world/FirstVisitThreshold";
 import { MomentNote } from "@/components/world/MomentNote";
 import { PreferencesPanel } from "@/components/world/PreferencesPanel";
@@ -123,6 +124,7 @@ export default function Home() {
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [thresholdOpen, setThresholdOpen] = useState(true);
   const [smallStepOpen, setSmallStepOpen] = useState(false);
+  const [activityOpen, setActivityOpen] = useState(false);
   const selectedDetail = state.selectedObject ? objectDetails[state.selectedObject] : null;
   const selectedObject = useMemo(
     () => worldObjects.find((object) => object.id === state.selectedObject),
@@ -255,6 +257,7 @@ export default function Home() {
           <p className="world-caption"><CloudRain aria-hidden="true" size={16} /> {state.atmosphere === "rain" ? "The rain can stay." : "A little weather is passing by."}</p>
           <MomentNote />
           <button className="small-step-trigger" type="button" onClick={() => setSmallStepOpen(true)}>I’m stuck</button>
+          <button className="small-step-trigger" type="button" onClick={() => setActivityOpen(true)}>A little nook</button>
           <p className="world-caption world-caption--right">{state.soundEnabled ? "A soft room tone is ready." : "The room is quiet by default."}</p>
         </div>
       </section>
@@ -273,6 +276,7 @@ export default function Home() {
 
       {preferencesOpen ? <PreferencesPanel onClose={() => setPreferencesOpen(false)} /> : null}
       {smallStepOpen ? <SmallStepPanel onClose={() => setSmallStepOpen(false)} /> : null}
+      {activityOpen ? <ActivityNook onClose={() => setActivityOpen(false)} /> : null}
       {reflectionOpen ? <ReflectionPanel onClose={() => setReflectionOpen(false)} /> : null}
 
       {selectedDetail && selectedObject ? (

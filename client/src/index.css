@@ -2435,3 +2435,159 @@
     }
   }
 }
+
+/*
+ * Design philosophy: Tactile Storybook Quiet — this nook offers a few real-life
+ * doors without scores, progress, urgency, or a feature-grid feeling.
+ */
+
+@layer components {
+  .activity-backdrop {
+    position: fixed;
+    z-index: 24;
+    inset: 0;
+    display: grid;
+    place-items: end center;
+    padding: 1rem;
+    background: rgba(28, 35, 31, 0.34);
+    backdrop-filter: blur(4px);
+    animation: note-backdrop-in 180ms ease both;
+  }
+
+  .activity-panel {
+    width: min(34rem, 100%);
+    padding: 1.2rem;
+    border: 1px solid color-mix(in srgb, var(--yuki-gold) 42%, transparent);
+    border-radius: 1.4rem 1.4rem 1rem 1rem;
+    color: var(--yuki-ink);
+    background: color-mix(in srgb, var(--yuki-cream) 97%, white 3%);
+    box-shadow: 0 24px 76px rgba(42, 34, 23, 0.27);
+    animation: note-panel-in 260ms var(--ease-yuki) both;
+  }
+
+  .activity-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .activity-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--yuki-moss);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .activity-topline button {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 0;
+    border-radius: 50%;
+    color: color-mix(in srgb, var(--yuki-ink) 58%, transparent);
+    background: transparent;
+  }
+
+  .activity-topline button:hover,
+  .activity-topline button:focus-visible {
+    color: var(--yuki-ink);
+    background: color-mix(in srgb, var(--yuki-moss) 13%, transparent);
+  }
+
+  .activity-panel h2 {
+    margin: 0.25rem 0 0.35rem;
+    color: var(--yuki-ink);
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(1.65rem, 7vw, 2.35rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+  }
+
+  .activity-copy {
+    margin: 0 0 1rem;
+    color: color-mix(in srgb, var(--yuki-ink) 68%, transparent);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .activity-options {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .activity-option {
+    display: grid;
+    grid-template-columns: 2.25rem 1fr;
+    align-items: center;
+    gap: 0.65rem;
+    width: 100%;
+    min-height: 4.35rem;
+    padding: 0.65rem 0.7rem;
+    border: 1px solid transparent;
+    border-radius: 0.9rem;
+    color: var(--yuki-ink);
+    background: rgba(255, 255, 255, 0.3);
+    text-align: left;
+    transition: border-color 180ms ease, background 180ms ease, transform 160ms var(--ease-yuki);
+  }
+
+  .activity-option:hover,
+  .activity-option:focus-visible,
+  .activity-option[data-selected="true"] {
+    border-color: color-mix(in srgb, var(--yuki-moss) 40%, transparent);
+    background: color-mix(in srgb, var(--yuki-moss) 12%, transparent);
+  }
+
+  .activity-option:active {
+    transform: scale(0.99);
+  }
+
+  .activity-icon {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    color: var(--yuki-moss);
+    background: color-mix(in srgb, var(--yuki-moss) 13%, transparent);
+  }
+
+  .activity-option strong,
+  .activity-option small {
+    display: block;
+  }
+
+  .activity-option strong {
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+
+  .activity-option small {
+    margin-top: 0.2rem;
+    color: color-mix(in srgb, var(--yuki-ink) 62%, transparent);
+    font-size: 0.7rem;
+    line-height: 1.35;
+  }
+
+  .activity-confirmation {
+    margin: 0.85rem 0 0;
+    padding-top: 0.8rem;
+    border-top: 1px dashed color-mix(in srgb, var(--yuki-ink) 15%, transparent);
+    color: color-mix(in srgb, var(--yuki-ink) 65%, transparent);
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  @media (min-width: 700px) {
+    .activity-backdrop {
+      place-items: center;
+    }
+  }
+}
