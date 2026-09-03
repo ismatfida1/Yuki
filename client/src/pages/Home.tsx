@@ -9,6 +9,7 @@ import { ActivityNook } from "@/components/world/ActivityNook";
 import { FirstVisitThreshold } from "@/components/world/FirstVisitThreshold";
 import { MomentNote } from "@/components/world/MomentNote";
 import { PreferencesPanel } from "@/components/world/PreferencesPanel";
+import { PresenceSelector } from "@/components/world/PresenceSelector";
 import { ReflectionPanel } from "@/components/world/ReflectionPanel";
 import { SmallStepPanel } from "@/components/world/SmallStepPanel";
 import { WorldControls } from "@/components/world/WorldControls";
@@ -170,6 +171,7 @@ export default function Home() {
           <p className="eyebrow"><Sparkles aria-hidden="true" size={14} /> Your small world</p>
           <h1 id="world-title">You’re here.<br /><em>You don’t have to do anything.</em></h1>
           <p className="world-subtitle">The room is awake, but it is not asking anything of you.</p>
+          <PresenceSelector />
         </div>
 
         <div className="room-stage" aria-label="Yuki’s home world. Explore the objects or stay in the room." role="region">

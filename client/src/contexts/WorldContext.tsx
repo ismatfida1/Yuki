@@ -9,6 +9,7 @@ import {
   type Atmosphere,
   type WorldDensity,
   type WorldObjectId,
+  type PresenceMode,
   type WorldState,
 } from "@/lib/world";
 
@@ -17,6 +18,7 @@ type WorldAction =
   | { type: "setDensity"; density: WorldDensity }
   | { type: "toggleSound" }
   | { type: "toggleMotion" }
+  | { type: "setPresenceMode"; presenceMode: PresenceMode }
   | { type: "selectObject"; objectId: WorldObjectId | null }
   | { type: "dismissInvitation" };
 
@@ -26,6 +28,7 @@ type WorldContextValue = {
   setDensity: (density: WorldDensity) => void;
   toggleSound: () => void;
   toggleMotion: () => void;
+  setPresenceMode: (presenceMode: PresenceMode) => void;
   selectObject: (objectId: WorldObjectId | null) => void;
   dismissInvitation: () => void;
 };
@@ -33,7 +36,7 @@ type WorldContextValue = {
 const WorldContext = createContext<WorldContextValue | null>(null);
 const WORLD_PREFERENCES_KEY = "yuki-world-preferences-v1";
 
-type SavedPreferences = Pick<WorldState, "atmosphere" | "density" | "soundEnabled" | "motionReduced">;
+type SavedPreferences = Pick<WorldState, "atmosphere" | "density" | "soundEnabled" | "motionReduced" | "presenceMode">;
 
 function loadSavedPreferences(): Partial<SavedPreferences> {
   try {
@@ -58,6 +61,8 @@ function worldReducer(state: WorldState, action: WorldAction): WorldState {
       return { ...state, soundEnabled: !state.soundEnabled };
     case "toggleMotion":
       return { ...state, motionReduced: !state.motionReduced };
+    case "setPresenceMode":
+      return { ...state, presenceMode: action.presenceMode };
     case "selectObject":
       return { ...state, selectedObject: action.objectId };
     case "dismissInvitation":
@@ -76,13 +81,14 @@ export function WorldProvider({ children }: { children: ReactNode }) {
       density: state.density,
       soundEnabled: state.soundEnabled,
       motionReduced: state.motionReduced,
+      presenceMode: state.presenceMode,
     };
     try {
       window.localStorage.setItem(WORLD_PREFERENCES_KEY, JSON.stringify(preferences));
     } catch {
       // Preferences remain available for this session when storage is unavailable.
     }
-  }, [state.atmosphere, state.density, state.soundEnabled, state.motionReduced]);
+  }, [state.atmosphere, state.density, state.soundEnabled, state.motionReduced, state.presenceMode]);
 
   const value = useMemo<WorldContextValue>(
     () => ({
@@ -91,6 +97,7 @@ export function WorldProvider({ children }: { children: ReactNode }) {
       setDensity: (density) => dispatch({ type: "setDensity", density }),
       toggleSound: () => dispatch({ type: "toggleSound" }),
       toggleMotion: () => dispatch({ type: "toggleMotion" }),
+      setPresenceMode: (presenceMode) => dispatch({ type: "setPresenceMode", presenceMode }),
       selectObject: (objectId) => dispatch({ type: "selectObject", objectId }),
       dismissInvitation: () => dispatch({ type: "dismissInvitation" }),
     }),

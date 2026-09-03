@@ -2591,3 +2591,93 @@
     }
   }
 }
+
+/*
+ * Design philosophy: Tactile Storybook Quiet — presence is user-authored and
+ * lightweight, with tactile choices instead of a settings-heavy mode switcher.
+ */
+
+@layer components {
+  .presence-selector {
+    max-width: 31rem;
+    margin-top: 1.1rem;
+  }
+
+  .presence-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: color-mix(in srgb, var(--yuki-ink) 50%, transparent);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .presence-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.42rem;
+  }
+
+  .presence-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.55rem;
+    padding: 0.45rem 0.68rem;
+    border: 1px solid color-mix(in srgb, var(--yuki-ink) 14%, transparent);
+    border-radius: 999px;
+    color: color-mix(in srgb, var(--yuki-ink) 67%, transparent);
+    background: color-mix(in srgb, var(--yuki-cream) 55%, transparent);
+    text-align: left;
+    transition: transform 160ms var(--ease-yuki), border-color 180ms ease, background 180ms ease, color 180ms ease;
+  }
+
+  .presence-option:hover,
+  .presence-option:focus-visible,
+  .presence-option[data-active="true"] {
+    border-color: color-mix(in srgb, var(--yuki-moss) 44%, transparent);
+    color: var(--yuki-ink);
+    background: color-mix(in srgb, var(--yuki-moss) 12%, transparent);
+  }
+
+  .presence-option:active {
+    transform: scale(0.97);
+  }
+
+  .presence-option > svg {
+    flex: 0 0 auto;
+    color: var(--yuki-moss);
+  }
+
+  .presence-option strong,
+  .presence-option small {
+    display: block;
+  }
+
+  .presence-option strong {
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .presence-option small {
+    max-width: 12rem;
+    margin-top: 0.16rem;
+    color: color-mix(in srgb, var(--yuki-ink) 51%, transparent);
+    font-size: 0.62rem;
+    line-height: 1.15;
+  }
+
+  @media (max-width: 560px) {
+    .presence-option {
+      flex: 1 1 calc(50% - 0.42rem);
+      align-items: flex-start;
+      border-radius: 0.8rem;
+    }
+
+    .presence-option:last-child {
+      flex-basis: 100%;
+    }
+  }
+}

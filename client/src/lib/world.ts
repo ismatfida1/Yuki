@@ -5,6 +5,7 @@
 
 export type Atmosphere = "morning" | "rain" | "evening" | "quiet";
 export type WorldDensity = "open" | "soft" | "still";
+export type PresenceMode = "nearby" | "quiet" | "making";
 export type WorldObjectId = "window" | "lamp" | "garden" | "pool" | "sketchbook" | "companion";
 
 export type WorldObject = {
@@ -19,6 +20,7 @@ export type WorldState = {
   density: WorldDensity;
   soundEnabled: boolean;
   motionReduced: boolean;
+  presenceMode: PresenceMode;
   selectedObject: WorldObjectId | null;
   invitationVisible: boolean;
 };
@@ -67,6 +69,7 @@ export const initialWorldState: WorldState = {
   density: "open",
   soundEnabled: false,
   motionReduced: false,
+  presenceMode: "nearby",
   selectedObject: null,
   invitationVisible: true,
 };
