@@ -1,0 +1,17 @@
+/**
+ * Design philosophy: Tactile Storybook Quiet — every doorway has a clear,
+ * immediate way back out, whether the user is touching, clicking, or typing.
+ */
+
+import { useEffect } from "react";
+
+export function useEscapeKey(onEscape: () => void) {
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") onEscape();
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onEscape]);
+}

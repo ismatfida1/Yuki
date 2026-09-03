@@ -4,6 +4,7 @@
  */
 
 import { useState } from "react";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { Coffee, DoorOpen, Pencil, Phone, Wind, X } from "lucide-react";
 
 const activities = [
@@ -15,6 +16,7 @@ const activities = [
 
 export function ActivityNook({ onClose }: { onClose: () => void }) {
   const [selected, setSelected] = useState<string | null>(null);
+  useEscapeKey(onClose);
 
   return (
     <div className="activity-backdrop" role="presentation" onMouseDown={onClose}>
