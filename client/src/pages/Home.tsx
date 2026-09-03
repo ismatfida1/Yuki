@@ -18,6 +18,12 @@ import { useWorld } from "@/contexts/WorldContext";
 import { useRoomRhythm } from "@/hooks/useRoomRhythm";
 import { worldObjects, type WorldObjectId } from "@/lib/world";
 
+const presenceCopy = {
+  nearby: "Yuki is sharing the room quietly.",
+  quiet: "The room is holding more space around you.",
+  making: "A few things are ready to be made alongside you.",
+} as const;
+
 const objectDetails: Record<WorldObjectId, { title: string; copy: string; action: string }> = {
   window: {
     title: "A little weather",
@@ -136,7 +142,7 @@ export default function Home() {
 
   return (
     <main
-      className={`yuki-app atmosphere-${state.atmosphere} density-${state.density}${state.motionReduced ? " motion-reduced" : ""}`}
+      className={`yuki-app atmosphere-${state.atmosphere} density-${state.density} presence-${state.presenceMode}${state.motionReduced ? " motion-reduced" : ""}`}
     >
       {thresholdOpen ? <FirstVisitThreshold onClose={() => setThresholdOpen(false)} /> : null}
       <div className="paper-grain" aria-hidden="true" />
@@ -170,7 +176,7 @@ export default function Home() {
         <div className="world-copy">
           <p className="eyebrow"><Sparkles aria-hidden="true" size={14} /> Your small world</p>
           <h1 id="world-title">You’re here.<br /><em>You don’t have to do anything.</em></h1>
-          <p className="world-subtitle">The room is awake, but it is not asking anything of you.</p>
+          <p className="world-subtitle">{presenceCopy[state.presenceMode]}</p>
           <PresenceSelector />
         </div>
 

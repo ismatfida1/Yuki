@@ -2681,3 +2681,44 @@
     }
   }
 }
+
+/*
+ * Design philosophy: Tactile Storybook Quiet — presence changes pacing and visual
+ * emphasis through small environmental shifts, never through spectacle or badges.
+ */
+
+@layer components {
+  .presence-quiet .room-stage {
+    filter: saturate(0.86) brightness(0.97);
+  }
+
+  .presence-quiet .room-object--companion,
+  .presence-quiet .room-object--companion + .world-object-hint {
+    opacity: 0.72;
+  }
+
+  .presence-making .room-object--sketchbook,
+  .presence-making .room-object--pool {
+    filter: saturate(1.08) brightness(1.03);
+  }
+
+  .presence-making .room-object--sketchbook::after,
+  .presence-making .room-object--pool::after {
+    opacity: 0.65;
+  }
+
+  .presence-nearby .room-object--companion {
+    filter: saturate(1.03) brightness(1.02);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .presence-making .room-object--sketchbook {
+      animation: making-breathe 4.8s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes making-breathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-0.18rem); }
+}
