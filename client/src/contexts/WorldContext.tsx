@@ -3,7 +3,7 @@
  * reversible, participation is optional, and motion/sound remain user-controlled.
  */
 
-import { createContext, useContext, useMemo, useReducer, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useReducer, type ReactNode } from "react";
 import {
   initialWorldState,
   type Atmosphere,
@@ -31,6 +31,22 @@ type WorldContextValue = {
 };
 
 const WorldContext = createContext<WorldContextValue | null>(null);
+const WORLD_PREFERENCES_KEY = "yuki-world-preferences-v1";
+
+type SavedPreferences = Pick<WorldState, "atmosphere" | "density" | "soundEnabled" | "motionReduced">;
+
+function loadSavedPreferences(): Partial<SavedPreferences> {
+  try {
+    const stored = window.localStorage.getItem(WORLD_PREFERENCES_KEY);
+    return stored ? (JSON.parse(stored) as Partial<SavedPreferences>) : {};
+  } catch {
+    return {};
+  }
+}
+
+function initialPersistedState(): WorldState {
+  return { ...initialWorldState, ...loadSavedPreferences() };
+}
 
 function worldReducer(state: WorldState, action: WorldAction): WorldState {
   switch (action.type) {
@@ -52,7 +68,21 @@ function worldReducer(state: WorldState, action: WorldAction): WorldState {
 }
 
 export function WorldProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(worldReducer, initialWorldState);
+  const [state, dispatch] = useReducer(worldReducer, undefined, initialPersistedState);
+
+  useEffect(() => {
+    const preferences: SavedPreferences = {
+      atmosphere: state.atmosphere,
+      density: state.density,
+      soundEnabled: state.soundEnabled,
+      motionReduced: state.motionReduced,
+    };
+    try {
+      window.localStorage.setItem(WORLD_PREFERENCES_KEY, JSON.stringify(preferences));
+    } catch {
+      // Preferences remain available for this session when storage is unavailable.
+    }
+  }, [state.atmosphere, state.density, state.soundEnabled, state.motionReduced]);
 
   const value = useMemo<WorldContextValue>(
     () => ({
