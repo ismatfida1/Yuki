@@ -14,6 +14,7 @@ import { SmallStepPanel } from "@/components/world/SmallStepPanel";
 import { WorldControls } from "@/components/world/WorldControls";
 import { WorldObjectButton } from "@/components/world/WorldObjectButton";
 import { useWorld } from "@/contexts/WorldContext";
+import { useRoomRhythm } from "@/hooks/useRoomRhythm";
 import { worldObjects, type WorldObjectId } from "@/lib/world";
 
 const objectDetails: Record<WorldObjectId, { title: string; copy: string; action: string }> = {
@@ -120,6 +121,7 @@ function ObjectArt({ id }: { id: WorldObjectId }) {
 
 export default function Home() {
   const { state, selectObject, dismissInvitation } = useWorld();
+  const roomRhythm = useRoomRhythm();
   const [reflectionOpen, setReflectionOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [thresholdOpen, setThresholdOpen] = useState(true);
@@ -152,7 +154,7 @@ export default function Home() {
         </a>
         <div className="header-note" aria-live="polite">
           <span className="header-note-dot" aria-hidden="true" />
-          <span>{atmosphereCopy[state.atmosphere]}</span>
+          <span>{roomRhythm.greeting}</span>
         </div>
         <div className="header-actions">
           <button className="preference-trigger" type="button" onClick={() => setPreferencesOpen(true)} aria-label="Open preferences">
@@ -258,7 +260,7 @@ export default function Home() {
           <MomentNote />
           <button className="small-step-trigger" type="button" onClick={() => setSmallStepOpen(true)}>I’m stuck</button>
           <button className="small-step-trigger" type="button" onClick={() => setActivityOpen(true)}>A little nook</button>
-          <p className="world-caption world-caption--right">{state.soundEnabled ? "A soft room tone is ready." : "The room is quiet by default."}</p>
+          <p className="world-caption world-caption--right">{state.soundEnabled ? "A soft room tone is ready." : roomRhythm.suggestion}</p>
         </div>
       </section>
 
