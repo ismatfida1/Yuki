@@ -11,7 +11,7 @@ import { useEscapeKey } from "@/hooks/useEscapeKey";
 const REFLECTION_KEY = "yuki-reflections-v1";
 
 export function PreferencesPanel({ onClose }: { onClose: () => void }) {
-  const { state, toggleMotion, toggleSound, setDensity } = useWorld();
+  const { state, toggleMotion, toggleSound, setDensity, resetPreferences } = useWorld();
   const [reflectionCount, setReflectionCount] = useState(0);
   const [cleared, setCleared] = useState(false);
   useEscapeKey(onClose);
@@ -29,6 +29,17 @@ export function PreferencesPanel({ onClose }: { onClose: () => void }) {
     window.localStorage.removeItem(REFLECTION_KEY);
     setReflectionCount(0);
     setCleared(true);
+  }
+
+  function resetRoom() {
+    resetPreferences();
+    setCleared(false);
+    setReflectionCount(0);
+    try {
+      window.localStorage.removeItem(REFLECTION_KEY);
+    } catch {
+      // The room preferences still reset for this session if storage is unavailable.
+    }
   }
 
   return (
@@ -72,6 +83,10 @@ export function PreferencesPanel({ onClose }: { onClose: () => void }) {
         <div className="preference-data-row">
           <span>{cleared ? "Your local reflections were cleared." : `${reflectionCount} saved reflection${reflectionCount === 1 ? "" : "s"} on this device.`}</span>
           {reflectionCount > 0 && !cleared ? <button type="button" onClick={clearReflections}>Clear them</button> : null}
+        </div>
+        <div className="preference-reset-row">
+          <span>Return the room to its starting preferences and clear local reflections.</span>
+          <button type="button" onClick={resetRoom}>Reset the room</button>
         </div>
       </section>
     </div>

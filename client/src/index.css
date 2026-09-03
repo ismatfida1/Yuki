@@ -2722,3 +2722,44 @@
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-0.18rem); }
 }
+
+/*
+ * Design philosophy: Tactile Storybook Quiet — reset is explicit and understandable,
+ * giving the user ownership over the room’s memory without alarmist treatment.
+ */
+
+@layer components {
+  .preference-reset-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-top: 1rem;
+    padding-top: 0.9rem;
+    border-top: 1px dashed color-mix(in srgb, var(--yuki-ink) 15%, transparent);
+    color: color-mix(in srgb, var(--yuki-ink) 52%, transparent);
+    font-size: 0.67rem;
+    line-height: 1.35;
+  }
+
+  .preference-reset-row button {
+    flex: 0 0 auto;
+    min-height: 2.35rem;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid color-mix(in srgb, var(--yuki-rose) 35%, transparent);
+    border-radius: 999px;
+    color: color-mix(in srgb, var(--yuki-rose) 82%, var(--yuki-ink));
+    background: transparent;
+    font-size: 0.67rem;
+    transition: background 180ms ease, transform 160ms var(--ease-yuki);
+  }
+
+  .preference-reset-row button:hover,
+  .preference-reset-row button:focus-visible {
+    background: color-mix(in srgb, var(--yuki-rose) 11%, transparent);
+  }
+
+  .preference-reset-row button:active {
+    transform: scale(0.97);
+  }
+}

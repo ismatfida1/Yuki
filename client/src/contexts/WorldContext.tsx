@@ -19,6 +19,7 @@ type WorldAction =
   | { type: "toggleSound" }
   | { type: "toggleMotion" }
   | { type: "setPresenceMode"; presenceMode: PresenceMode }
+  | { type: "resetPreferences" }
   | { type: "selectObject"; objectId: WorldObjectId | null }
   | { type: "dismissInvitation" };
 
@@ -29,6 +30,7 @@ type WorldContextValue = {
   toggleSound: () => void;
   toggleMotion: () => void;
   setPresenceMode: (presenceMode: PresenceMode) => void;
+  resetPreferences: () => void;
   selectObject: (objectId: WorldObjectId | null) => void;
   dismissInvitation: () => void;
 };
@@ -63,6 +65,15 @@ function worldReducer(state: WorldState, action: WorldAction): WorldState {
       return { ...state, motionReduced: !state.motionReduced };
     case "setPresenceMode":
       return { ...state, presenceMode: action.presenceMode };
+    case "resetPreferences":
+      return {
+        ...state,
+        atmosphere: initialWorldState.atmosphere,
+        density: initialWorldState.density,
+        soundEnabled: initialWorldState.soundEnabled,
+        motionReduced: initialWorldState.motionReduced,
+        presenceMode: initialWorldState.presenceMode,
+      };
     case "selectObject":
       return { ...state, selectedObject: action.objectId };
     case "dismissInvitation":
@@ -98,6 +109,7 @@ export function WorldProvider({ children }: { children: ReactNode }) {
       toggleSound: () => dispatch({ type: "toggleSound" }),
       toggleMotion: () => dispatch({ type: "toggleMotion" }),
       setPresenceMode: (presenceMode) => dispatch({ type: "setPresenceMode", presenceMode }),
+      resetPreferences: () => dispatch({ type: "resetPreferences" }),
       selectObject: (objectId) => dispatch({ type: "selectObject", objectId }),
       dismissInvitation: () => dispatch({ type: "dismissInvitation" }),
     }),
