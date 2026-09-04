@@ -50,7 +50,13 @@ function loadSavedPreferences(): Partial<SavedPreferences> {
 }
 
 function initialPersistedState(): WorldState {
-  return { ...initialWorldState, ...loadSavedPreferences() };
+  const saved = loadSavedPreferences();
+  const systemReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+  return {
+    ...initialWorldState,
+    motionReduced: saved.motionReduced ?? systemReduced,
+    ...saved,
+  };
 }
 
 function worldReducer(state: WorldState, action: WorldAction): WorldState {
