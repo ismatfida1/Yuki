@@ -16,7 +16,7 @@ import { WorldControls } from "@/components/world/WorldControls";
 import { WorldObjectButton } from "@/components/world/WorldObjectButton";
 import { useWorld } from "@/contexts/WorldContext";
 import { useRoomRhythm } from "@/hooks/useRoomRhythm";
-import { worldObjects, type WorldObjectId } from "@/lib/world";
+import { worldObjects, type Atmosphere, type PresenceMode, type WorldObjectId } from "@/lib/world";
 
 const presenceCopy = {
   nearby: "Yuki is sharing the room quietly.",
@@ -127,7 +127,7 @@ function ObjectArt({ id }: { id: WorldObjectId }) {
 }
 
 export default function Home() {
-  const { state, selectObject, dismissInvitation } = useWorld();
+  const { state, selectObject, setAtmosphere, setPresenceMode, dismissInvitation } = useWorld();
   const roomRhythm = useRoomRhythm();
   const [reflectionOpen, setReflectionOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
@@ -139,6 +139,19 @@ export default function Home() {
     () => worldObjects.find((object) => object.id === state.selectedObject),
     [state.selectedObject],
   );
+
+  function activateObject(id: WorldObjectId) {
+    const atmosphereOrder: Atmosphere[] = ["morning", "rain", "evening", "quiet"];
+    if (id === "window") {
+      const next = atmosphereOrder[(atmosphereOrder.indexOf(state.atmosphere) + 1) % atmosphereOrder.length];
+      setAtmosphere(next);
+    }
+    if (id === "lamp") setAtmosphere(state.atmosphere === "evening" ? "quiet" : "evening");
+    if (id === "garden") setAtmosphere("morning");
+    if (id === "pool") setAtmosphere("quiet");
+    if (id === "companion") setPresenceMode("nearby" as PresenceMode);
+    selectObject(id);
+  }
 
   return (
     <main
@@ -200,7 +213,7 @@ export default function Home() {
             label="Window. Let a little weather into the room."
             hint="The window"
             className="world-object--window"
-            onActivate={() => selectObject("window")}
+            onActivate={() => activateObject("window")}
           >
             <ObjectArt id="window" />
           </WorldObjectButton>
@@ -210,7 +223,7 @@ export default function Home() {
             label="Lamp. Warm the light, or leave it as it is."
             hint="The lamp"
             className="world-object--lamp"
-            onActivate={() => selectObject("lamp")}
+            onActivate={() => activateObject("lamp")}
           >
             <ObjectArt id="lamp" />
           </WorldObjectButton>
@@ -220,7 +233,7 @@ export default function Home() {
             label="Yuki. A quiet companion is nearby."
             hint="Yuki"
             className="world-object--companion"
-            onActivate={() => selectObject("companion")}
+            onActivate={() => activateObject("companion")}
           >
             <ObjectArt id="companion" />
           </WorldObjectButton>
@@ -242,7 +255,7 @@ export default function Home() {
             label="Reflection pool. Let a word, color, or silence make a ripple."
             hint="The reflection pool"
             className="world-object--pool"
-            onActivate={() => selectObject("pool")}
+            onActivate={() => activateObject("pool")}
           >
             <ObjectArt id="pool" />
           </WorldObjectButton>
@@ -252,7 +265,7 @@ export default function Home() {
             label="Garden path. A little green place is waiting outside."
             hint="The garden path"
             className="world-object--garden"
-            onActivate={() => selectObject("garden")}
+            onActivate={() => activateObject("garden")}
           >
             <ObjectArt id="garden" />
           </WorldObjectButton>
