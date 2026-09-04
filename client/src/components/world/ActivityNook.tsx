@@ -23,7 +23,7 @@ export function ActivityNook({ onClose, onChoose }: { onClose: () => void; onCho
       <section className="activity-panel" role="dialog" aria-modal="true" aria-labelledby="activity-title" onMouseDown={(event) => event.stopPropagation()}>
         <div className="activity-topline">
           <span className="activity-kicker"><Wind aria-hidden="true" size={15} /> A few possible paths</span>
-          <button type="button" onClick={onClose} aria-label="Close activities"><X aria-hidden="true" size={17} /></button>
+          <button autoFocus type="button" onClick={onClose} aria-label="Close activities"><X aria-hidden="true" size={17} /></button>
         </div>
         <h2 id="activity-title">What would feel kind to your day?</h2>
         <p className="activity-copy">Choose one, ignore all of them, or come back later. Yuki will not keep score.</p>

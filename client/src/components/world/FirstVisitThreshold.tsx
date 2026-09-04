@@ -43,7 +43,7 @@ export function FirstVisitThreshold({ onClose }: { onClose: () => void }) {
           <span className="threshold-hill threshold-hill--one" />
           <span className="threshold-hill threshold-hill--two" />
         </div>
-        <button className="threshold-close" type="button" onClick={enter} aria-label="Enter Yuki quietly">
+        <button autoFocus className="threshold-close" type="button" onClick={enter} aria-label="Enter Yuki quietly">
           <X aria-hidden="true" size={17} />
         </button>
         <div className="threshold-content">

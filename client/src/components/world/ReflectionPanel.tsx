@@ -70,7 +70,7 @@ export function ReflectionPanel({ onClose }: { onClose: () => void }) {
       >
         <div className="reflection-topline">
           <span className="reflection-kicker"><BookOpen aria-hidden="true" size={15} /> The sketchbook</span>
-          <button type="button" onClick={onClose} aria-label="Close sketchbook">
+          <button autoFocus type="button" onClick={onClose} aria-label="Close sketchbook">
             <X aria-hidden="true" size={17} />
           </button>
         </div>

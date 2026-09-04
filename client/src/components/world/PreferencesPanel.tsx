@@ -53,7 +53,7 @@ export function PreferencesPanel({ onClose }: { onClose: () => void }) {
       >
         <div className="preferences-topline">
           <span className="preferences-kicker"><Eye aria-hidden="true" size={15} /> Your room, your rules</span>
-          <button type="button" onClick={onClose} aria-label="Close preferences"><X aria-hidden="true" size={17} /></button>
+          <button autoFocus type="button" onClick={onClose} aria-label="Close preferences"><X aria-hidden="true" size={17} /></button>
         </div>
         <h2 id="preferences-title">Make the world gentler</h2>
         <p className="preferences-copy">These choices change what Yuki shows you. Nothing here is a test, and you can change it whenever you like.</p>

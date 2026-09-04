@@ -30,7 +30,7 @@ export function SmallStepPanel({ onClose }: { onClose: () => void }) {
       <section className="small-step-panel" role="dialog" aria-modal="true" aria-labelledby="small-step-title" onMouseDown={(event) => event.stopPropagation()}>
         <div className="small-step-topline">
           <span className="small-step-kicker"><Footprints aria-hidden="true" size={15} /> A smaller path</span>
-          <button type="button" onClick={onClose} aria-label="Close small step panel"><X aria-hidden="true" size={17} /></button>
+          <button autoFocus type="button" onClick={onClose} aria-label="Close small step panel"><X aria-hidden="true" size={17} /></button>
         </div>
         <h2 id="small-step-title">What feels tangled?</h2>
         <p className="small-step-copy">You can describe the difficulty in a few words. Yuki will not diagnose it or turn it into a plan.</p>
