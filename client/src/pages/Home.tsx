@@ -134,6 +134,7 @@ export default function Home() {
   const [thresholdOpen, setThresholdOpen] = useState(true);
   const [smallStepOpen, setSmallStepOpen] = useState(false);
   const [activityOpen, setActivityOpen] = useState(false);
+  const [actionNotice, setActionNotice] = useState<string | null>(null);
   const selectedDetail = state.selectedObject ? objectDetails[state.selectedObject] : null;
   const selectedObject = useMemo(
     () => worldObjects.find((object) => object.id === state.selectedObject),
@@ -144,18 +145,22 @@ export default function Home() {
     if (title === "Rest here") {
       setAtmosphere("quiet");
       setPresenceMode("quiet");
+      setActionNotice("The room is making more space around you.");
     }
     if (title === "Make something") {
       setAtmosphere("morning");
       setPresenceMode("making");
+      setActionNotice("A little morning light has found the sketchbook.");
     }
     if (title === "Step outside") {
       setAtmosphere("morning");
       setPresenceMode("nearby");
+      setActionNotice("The garden path is open whenever you want it.");
     }
     if (title === "Reach outward") {
       setAtmosphere("evening");
       setPresenceMode("nearby");
+      setActionNotice("A warmer corner is waiting when you return.");
     }
   }
 
@@ -164,11 +169,24 @@ export default function Home() {
     if (id === "window") {
       const next = atmosphereOrder[(atmosphereOrder.indexOf(state.atmosphere) + 1) % atmosphereOrder.length];
       setAtmosphere(next);
+      setActionNotice(next === "rain" ? "Rain has found the window." : "The window is holding a new kind of light.");
     }
-    if (id === "lamp") setAtmosphere(state.atmosphere === "evening" ? "quiet" : "evening");
-    if (id === "garden") setAtmosphere("morning");
-    if (id === "pool") setAtmosphere("quiet");
-    if (id === "companion") setPresenceMode("nearby" as PresenceMode);
+    if (id === "lamp") {
+      setAtmosphere(state.atmosphere === "evening" ? "quiet" : "evening");
+      setActionNotice("The lamp is keeping a small pool of warmth.");
+    }
+    if (id === "garden") {
+      setAtmosphere("morning");
+      setActionNotice("The garden path is still there.");
+    }
+    if (id === "pool") {
+      setAtmosphere("quiet");
+      setActionNotice("The water is listening without asking for words.");
+    }
+    if (id === "companion") {
+      setPresenceMode("nearby" as PresenceMode);
+      setActionNotice("Yuki settles nearby, without needing anything.");
+    }
     selectObject(id);
   }
 
@@ -335,7 +353,7 @@ export default function Home() {
         </aside>
       ) : null}
 
-      <p className="world-status" aria-live="polite">{state.motionReduced ? "Stillness is on." : "The room moves gently."}</p>
+      <p className="world-status" aria-live="polite">{actionNotice ?? (state.motionReduced ? "Stillness is on." : "The room moves gently.")}</p>
     </main>
   );
 }
