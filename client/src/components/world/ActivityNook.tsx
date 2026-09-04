@@ -14,7 +14,7 @@ const activities = [
   { icon: Phone, title: "Reach outward", copy: "Send a small message to someone you already trust, if that feels right." },
 ];
 
-export function ActivityNook({ onClose }: { onClose: () => void }) {
+export function ActivityNook({ onClose, onChoose }: { onClose: () => void; onChoose?: (title: string) => void }) {
   const [selected, setSelected] = useState<string | null>(null);
   useEscapeKey(onClose);
 
@@ -29,7 +29,7 @@ export function ActivityNook({ onClose }: { onClose: () => void }) {
         <p className="activity-copy">Choose one, ignore all of them, or come back later. Yuki will not keep score.</p>
         <div className="activity-options">
           {activities.map(({ icon: Icon, title, copy }) => (
-            <button className="activity-option" data-selected={selected === title} type="button" key={title} onClick={() => setSelected(title)}>
+            <button className="activity-option" data-selected={selected === title} type="button" key={title} onClick={() => { setSelected(title); onChoose?.(title); }}>
               <span className="activity-icon"><Icon aria-hidden="true" size={17} /></span>
               <span><strong>{title}</strong><small>{copy}</small></span>
             </button>

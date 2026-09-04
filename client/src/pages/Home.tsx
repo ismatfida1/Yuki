@@ -140,6 +140,25 @@ export default function Home() {
     [state.selectedObject],
   );
 
+  function handleActivityChoice(title: string) {
+    if (title === "Rest here") {
+      setAtmosphere("quiet");
+      setPresenceMode("quiet");
+    }
+    if (title === "Make something") {
+      setAtmosphere("morning");
+      setPresenceMode("making");
+    }
+    if (title === "Step outside") {
+      setAtmosphere("morning");
+      setPresenceMode("nearby");
+    }
+    if (title === "Reach outward") {
+      setAtmosphere("evening");
+      setPresenceMode("nearby");
+    }
+  }
+
   function activateObject(id: WorldObjectId) {
     const atmosphereOrder: Atmosphere[] = ["morning", "rain", "evening", "quiet"];
     if (id === "window") {
@@ -299,7 +318,7 @@ export default function Home() {
 
       {preferencesOpen ? <PreferencesPanel onClose={() => setPreferencesOpen(false)} /> : null}
       {smallStepOpen ? <SmallStepPanel onClose={() => setSmallStepOpen(false)} /> : null}
-      {activityOpen ? <ActivityNook onClose={() => setActivityOpen(false)} /> : null}
+      {activityOpen ? <ActivityNook onClose={() => setActivityOpen(false)} onChoose={handleActivityChoice} /> : null}
       {reflectionOpen ? <ReflectionPanel onClose={() => setReflectionOpen(false)} /> : null}
 
       {selectedDetail && selectedObject ? (
