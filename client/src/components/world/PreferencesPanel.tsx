@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Eye, ShieldCheck, Volume2, VolumeX, X } from "lucide-react";
 import { useWorld } from "@/contexts/WorldContext";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { useFocusReturn } from "@/hooks/useFocusReturn";
 
 const REFLECTION_KEY = "yuki-reflections-v1";
 
@@ -15,6 +16,7 @@ export function PreferencesPanel({ onClose }: { onClose: () => void }) {
   const [reflectionCount, setReflectionCount] = useState(0);
   const [cleared, setCleared] = useState(false);
   useEscapeKey(onClose);
+  useFocusReturn();
 
   useEffect(() => {
     try {

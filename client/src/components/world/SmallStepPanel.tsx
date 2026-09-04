@@ -5,6 +5,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { useFocusReturn } from "@/hooks/useFocusReturn";
 import { Footprints, X } from "lucide-react";
 
 const suggestions = [
@@ -18,6 +19,7 @@ export function SmallStepPanel({ onClose }: { onClose: () => void }) {
   const [difficulty, setDifficulty] = useState("");
   const [suggestion, setSuggestion] = useState("");
   useEscapeKey(onClose);
+  useFocusReturn();
 
   function findStep(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

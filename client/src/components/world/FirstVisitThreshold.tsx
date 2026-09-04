@@ -5,6 +5,7 @@
 
 import { useEffect, useState } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { useFocusReturn } from "@/hooks/useFocusReturn";
 import { ArrowRight, Leaf, X } from "lucide-react";
 
 const SEEN_KEY = "yuki-threshold-seen-v1";
@@ -12,6 +13,7 @@ const SEEN_KEY = "yuki-threshold-seen-v1";
 export function FirstVisitThreshold({ onClose }: { onClose: () => void }) {
   const [visible, setVisible] = useState(false);
   useEscapeKey(enter);
+  useFocusReturn();
 
   useEffect(() => {
     try {

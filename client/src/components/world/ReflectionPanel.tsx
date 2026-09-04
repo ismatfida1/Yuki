@@ -5,6 +5,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { useFocusReturn } from "@/hooks/useFocusReturn";
 import { BookOpen, Trash2, X } from "lucide-react";
 
 type Reflection = {
@@ -29,6 +30,7 @@ export function ReflectionPanel({ onClose }: { onClose: () => void }) {
   const [text, setText] = useState("");
   const [showSaved, setShowSaved] = useState(false);
   useEscapeKey(onClose);
+  useFocusReturn();
 
   useEffect(() => {
     setReflections(loadReflections());
