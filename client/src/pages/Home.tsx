@@ -174,7 +174,7 @@ export default function Home() {
 
   return (
     <main
-      className={`yuki-app atmosphere-${state.atmosphere} density-${state.density} presence-${state.presenceMode}${state.motionReduced ? " motion-reduced" : ""}`}
+      className={`yuki-app atmosphere-${state.atmosphere} rhythm-${roomRhythm.period} density-${state.density} presence-${state.presenceMode}${state.motionReduced ? " motion-reduced" : ""}`}
     >
       {thresholdOpen ? <FirstVisitThreshold onClose={() => setThresholdOpen(false)} /> : null}
       <div className="paper-grain" aria-hidden="true" />

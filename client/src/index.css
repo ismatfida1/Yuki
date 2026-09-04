@@ -2763,3 +2763,40 @@
     transform: scale(0.97);
   }
 }
+
+/*
+ * Design philosophy: Tactile Storybook Quiet — time changes the color temperature
+ * of the same place, not the identity of the world or the user’s obligations.
+ */
+
+@layer components {
+  .rhythm-early .world-illustration-tint {
+    background: linear-gradient(145deg, rgba(93, 112, 127, 0.18), rgba(212, 185, 144, 0.12));
+  }
+
+  .rhythm-day .world-illustration-tint {
+    background: linear-gradient(145deg, rgba(225, 202, 157, 0.08), rgba(141, 170, 120, 0.12));
+  }
+
+  .rhythm-late .world-illustration-tint {
+    background: linear-gradient(145deg, rgba(184, 126, 99, 0.13), rgba(90, 74, 105, 0.14));
+  }
+
+  .rhythm-night .world-illustration-tint {
+    background: linear-gradient(145deg, rgba(31, 45, 74, 0.2), rgba(78, 58, 88, 0.18));
+  }
+
+  .rhythm-early .ambient-dust,
+  .rhythm-night .ambient-dust {
+    opacity: 0.45;
+  }
+
+  .rhythm-day .window-light {
+    opacity: 0.9;
+  }
+
+  .rhythm-late .window-light {
+    opacity: 0.72;
+    background: color-mix(in srgb, var(--yuki-rose) 36%, transparent);
+  }
+}
