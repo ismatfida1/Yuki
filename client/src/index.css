@@ -2800,3 +2800,32 @@
     background: color-mix(in srgb, var(--yuki-rose) 36%, transparent);
   }
 }
+
+/*
+ * Design philosophy: Tactile Storybook Quiet — low stimulation removes visual
+ * noise without removing the world, its objects, or the user’s agency.
+ */
+
+@layer components {
+  .motion-reduced .ambient-dust,
+  .motion-reduced .room-scribble,
+  .motion-reduced .window-light,
+  .motion-reduced .companion-halo {
+    opacity: 0 !important;
+  }
+
+  .motion-reduced .world-illustration-layer {
+    filter: saturate(0.68) contrast(0.94);
+  }
+
+  .motion-reduced .room-object--companion,
+  .motion-reduced .room-object--sketchbook {
+    transform: none !important;
+  }
+
+  .motion-reduced .presence-option,
+  .motion-reduced .world-object-button,
+  .motion-reduced button {
+    transition-duration: 0.001ms !important;
+  }
+}
