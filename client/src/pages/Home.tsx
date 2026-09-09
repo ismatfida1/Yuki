@@ -3,7 +3,7 @@
  * not a dashboard; interactions are contextual, optional, readable, and reversible.
  */
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { BookOpen, CloudRain, Droplets, Leaf, LampDesk, PenLine, Sparkles, X } from "lucide-react";
 import { ActivityNook } from "@/components/world/ActivityNook";
 import { FirstVisitThreshold } from "@/components/world/FirstVisitThreshold";
@@ -131,6 +131,12 @@ export default function Home() {
   const { state, selectObject, setAtmosphere, setPresenceMode, dismissInvitation } = useWorld();
   const roomRhythm = useRoomRhythm();
   useRoomSound(state.soundEnabled, state.atmosphere);
+
+  useEffect(() => {
+    const atmosphereNames = { morning: "Morning room", rain: "Rain room", evening: "Evening room", quiet: "Quiet room" };
+    document.title = `Yuki · ${atmosphereNames[state.atmosphere]}`;
+    return () => { document.title = "Yuki"; };
+  }, [state.atmosphere]);
   const [reflectionOpen, setReflectionOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [thresholdOpen, setThresholdOpen] = useState(true);
