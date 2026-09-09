@@ -56,7 +56,19 @@ export function useRoomSound(enabled: boolean, atmosphere: Atmosphere) {
 
     context.resume().catch(() => undefined);
 
-    return stop;
+    const handleVisibility = () => {
+      if (document.hidden) {
+        context.suspend().catch(() => undefined);
+      } else {
+        context.resume().catch(() => undefined);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+      stop();
+    };
   }, [enabled, atmosphere]);
 
   useEffect(() => () => {
