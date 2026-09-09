@@ -16,6 +16,7 @@ import { WorldControls } from "@/components/world/WorldControls";
 import { WorldObjectButton } from "@/components/world/WorldObjectButton";
 import { useWorld } from "@/contexts/WorldContext";
 import { useRoomRhythm } from "@/hooks/useRoomRhythm";
+import { useRoomSound } from "@/hooks/useRoomSound";
 import { worldObjects, type Atmosphere, type PresenceMode, type WorldObjectId } from "@/lib/world";
 
 const presenceCopy = {
@@ -129,6 +130,7 @@ function ObjectArt({ id }: { id: WorldObjectId }) {
 export default function Home() {
   const { state, selectObject, setAtmosphere, setPresenceMode, dismissInvitation } = useWorld();
   const roomRhythm = useRoomRhythm();
+  useRoomSound(state.soundEnabled, state.atmosphere);
   const [reflectionOpen, setReflectionOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [thresholdOpen, setThresholdOpen] = useState(true);
@@ -318,7 +320,7 @@ export default function Home() {
           <MomentNote />
           <button className="small-step-trigger" type="button" onClick={() => setSmallStepOpen(true)}>I’m stuck</button>
           <button className="small-step-trigger" type="button" onClick={() => setActivityOpen(true)}>A little nook</button>
-          <p className="world-caption world-caption--right">{state.soundEnabled ? "A soft room tone is ready." : roomRhythm.suggestion}</p>
+          <p className="world-caption world-caption--right">{state.soundEnabled ? "A soft room tone is playing." : roomRhythm.suggestion}</p>
         </div>
       </section>
 
