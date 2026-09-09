@@ -20,6 +20,7 @@ export function useRoomSound(enabled: boolean, atmosphere: Atmosphere) {
       nodesRef.current = [];
       gainRef.current?.disconnect();
       gainRef.current = null;
+      contextRef.current?.suspend().catch(() => undefined);
     }
 
     if (!enabled) {
