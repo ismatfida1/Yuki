@@ -1,0 +1,12 @@
+{
+  "name": "Yuki — Living World",
+  "short_name": "Yuki",
+  "description": "A quiet adaptive world for reflection, making, rest, and small real-life steps.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#172e36",
+  "theme_color": "#172e36",
+  "lang": "en"
+}
