@@ -17,6 +17,7 @@ import { WorldObjectButton } from "@/components/world/WorldObjectButton";
 import { useWorld } from "@/contexts/WorldContext";
 import { useRoomRhythm } from "@/hooks/useRoomRhythm";
 import { useRoomSound } from "@/hooks/useRoomSound";
+import { useOnlineStatus } from "@/hooks/useOnlineStatus";
 import { worldObjects, type Atmosphere, type PresenceMode, type WorldObjectId } from "@/lib/world";
 
 const presenceCopy = {
@@ -130,6 +131,7 @@ function ObjectArt({ id }: { id: WorldObjectId }) {
 export default function Home() {
   const { state, selectObject, setAtmosphere, setPresenceMode, dismissInvitation } = useWorld();
   const roomRhythm = useRoomRhythm();
+  const online = useOnlineStatus();
   useRoomSound(state.soundEnabled, state.atmosphere);
 
   useEffect(() => {
@@ -220,7 +222,7 @@ export default function Home() {
         </a>
         <div className="header-note" aria-live="polite">
           <span className="header-note-dot" aria-hidden="true" />
-          <span>{roomRhythm.greeting}</span>
+          <span>{online ? roomRhythm.greeting : "The room is still here offline."}</span>
         </div>
         <div className="header-actions">
           <button className="preference-trigger" type="button" onClick={() => setPreferencesOpen(true)} aria-label="Open preferences">
