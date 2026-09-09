@@ -202,6 +202,7 @@ export default function Home() {
     <main
       className={`yuki-app atmosphere-${state.atmosphere} rhythm-${roomRhythm.period} density-${state.density} presence-${state.presenceMode}${state.motionReduced ? " motion-reduced" : ""}`}
     >
+      <a className="skip-link" href="#world">Skip to the world</a>
       {thresholdOpen ? <FirstVisitThreshold onClose={() => setThresholdOpen(false)} /> : null}
       <div className="paper-grain" aria-hidden="true" />
       <div className="ambient-dust ambient-dust--one" aria-hidden="true" />
@@ -230,7 +231,7 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="home-world" id="world" aria-labelledby="world-title">
+      <section className="home-world" id="world" tabIndex={-1} aria-labelledby="world-title">
         <div className="world-copy">
           <p className="eyebrow"><Sparkles aria-hidden="true" size={14} /> Your small world</p>
           <h1 id="world-title">You’re here.<br /><em>You don’t have to do anything.</em></h1>
